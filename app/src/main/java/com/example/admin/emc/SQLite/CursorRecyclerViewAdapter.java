@@ -1,4 +1,4 @@
-package com.example.admin.electronicmusiccatalog;
+package com.example.admin.emc.SQLite;
 
 import android.content.Context;
 import android.database.Cursor;

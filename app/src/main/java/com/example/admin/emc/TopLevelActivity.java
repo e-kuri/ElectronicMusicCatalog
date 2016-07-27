@@ -1,4 +1,4 @@
-package com.example.admin.electronicmusiccatalog;
+package com.example.admin.emc;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
@@ -8,9 +8,14 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
 
-import java.util.List;
+import com.example.admin.emc.db.DAO.GenreDao;
+import com.example.admin.emc.db.Firebase.FirebaseHelper;
+import com.example.admin.emc.model.Genre;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
-import static com.example.admin.electronicmusiccatalog.R.string.not_supported;
+import java.util.HashMap;
+import java.util.Map;
 
 public class TopLevelActivity extends AppCompatActivity {
 
@@ -39,5 +44,7 @@ public class TopLevelActivity extends AppCompatActivity {
         };
 
         lv.setOnItemClickListener(listViewClickListener);
+
+        FirebaseHelper.initializeDB();
     }
 }

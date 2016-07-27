@@ -5,7 +5,7 @@ android {
     buildToolsVersion "24.0.0"
 
     defaultConfig {
-        applicationId "com.example.admin.electronicmusiccatalog"
+        applicationId "com.example.admin.emc"
         minSdkVersion 17
         targetSdkVersion 24
         versionCode 1
@@ -26,4 +26,8 @@ dependencies {
     compile 'com.android.support:design:24.0.0'
     compile 'com.android.support:support-v4:24.0.0'
     compile 'com.android.support:recyclerview-v7:24+'
+    compile 'com.github.bumptech.glide:glide:3.7.0'
+    compile 'com.google.firebase:firebase-database:9.2.1'
 }
+
+apply plugin: 'com.google.gms.google-services'

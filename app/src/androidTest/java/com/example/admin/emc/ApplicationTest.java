@@ -1,4 +1,4 @@
-package com.example.admin.electronicmusiccatalog;
+package com.example.admin.emc;
 
 import android.app.Application;
 import android.test.ApplicationTestCase;

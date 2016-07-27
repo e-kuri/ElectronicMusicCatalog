@@ -1,22 +1,18 @@
-package com.example.admin.electronicmusiccatalog;
+package com.example.admin.emc;
 
-import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
-import android.database.sqlite.SQLiteException;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.MenuItem;
-import android.widget.CursorAdapter;
-import android.widget.SimpleCursorAdapter;
-import android.widget.TextView;
-import android.widget.Toast;
 
-import java.util.ArrayList;
+import com.example.admin.emc.SQLite.DJAdapter;
+import com.example.admin.emc.db.DAO.DjDao;
+import com.example.admin.emc.model.DJ;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
 import java.util.List;
 
 public class DJActivity extends AppCompatActivity {
@@ -24,9 +20,12 @@ public class DJActivity extends AppCompatActivity {
     private List<DJ> djs;
     private RecyclerView recyclerView;
     private DJAdapter djAdapter;
-    private SQLiteDatabase db = null;
-    private Cursor cursor = null;
+    //private SQLiteDatabase db = null;
+    //private Cursor cursor = null;
     private SQLiteOpenHelper djDatabaseHelper;
+
+    private DatabaseReference ref;
+    private DatabaseReference djRef;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,10 +35,15 @@ public class DJActivity extends AppCompatActivity {
         recyclerView = ((RecyclerView) findViewById(R.id.recycler_view));
         //List<DJ> djList = new ArrayList<>();
 
-        djDatabaseHelper = new DJDatabaseHelper(getApplicationContext());
-        new DBAccessAsyncTask().execute();
+        //djDatabaseHelper = new DJSQLiteHelper(getApplicationContext());
+        //new DBAccessAsyncTask().execute();
         recyclerView.setLayoutManager(new LinearLayoutManager(DJActivity.this));
         recyclerView.setItemAnimator(new DefaultItemAnimator());
+
+        ref = FirebaseDatabase.getInstance().getReference();
+        djRef = ref.child(DjDao.TABLE_NAME);
+
+
         /*
         try{
             //new DBAccessAsyncTask().execute();
@@ -84,7 +88,7 @@ public class DJActivity extends AppCompatActivity {
 
         }*/
     }
-
+/*
     @Override
     protected void onDestroy() {
         super.onDestroy();
@@ -102,11 +106,12 @@ public class DJActivity extends AppCompatActivity {
         protected Void doInBackground(Void... vParam) {
             try{
                 db = djDatabaseHelper.getReadableDatabase();
-                cursor = db.query("DJ", null, "genre = ?", new String[] {"Techno"}, null, null, null);
+                cursor = db.query(DjDao.TABLE_NAME, null, null, null, null, null, null);
 
-            }catch (SQLiteException e){
+            }catch (Exception e){
                 Toast.makeText(DJActivity.this, "Database unavailable", Toast.LENGTH_SHORT).show();
                 e.printStackTrace();
+                Log.d("CURSOR", "doInBackground: " + cursor.getCount());
             }
             return null;
         }
@@ -117,5 +122,7 @@ public class DJActivity extends AppCompatActivity {
             DJAdapter djAdapter = new DJAdapter(DJActivity.this, cursor);
             recyclerView.setAdapter(djAdapter);
         }
+
     }
+    */
 }

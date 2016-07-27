@@ -1,4 +1,4 @@
-package com.example.admin.electronicmusiccatalog;
+package com.example.admin.emc;
 
 import android.support.v7.widget.RecyclerView.ViewHolder;
 import android.view.View;

@@ -1,20 +1,15 @@
-package com.example.admin.electronicmusiccatalog;
+package com.example.admin.emc.SQLite;
 
 import android.content.Context;
 import android.database.Cursor;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.util.Arrays;
-import java.util.List;
+import com.bumptech.glide.Glide;
+import com.example.admin.emc.DJHolder;
+import com.example.admin.emc.R;
+import com.example.admin.emc.db.DAO.DjDao;
 
 /**
  * Created by admin on 7/13/2016.
@@ -48,10 +43,10 @@ public class DJAdapter extends CursorRecyclerViewAdapter<DJHolder>{
     public void onBindViewHolder(DJHolder holder, Cursor cursor) {
         //DJ dj = DJList.get(position);
 
-        int nameIndex = cursor.getColumnIndex("name");
-        int nationalityIndex = cursor.getColumnIndex("nationality");
-        int genreIndex = cursor.getColumnIndex("genre");
-        int imageIndex = cursor.getColumnIndex("imageURL");
+        int nameIndex = cursor.getColumnIndex(DjDao.DJColumns.NAME.toString());
+        int nationalityIndex = cursor.getColumnIndex(DjDao.DJColumns.NATIONALITY.toString());
+        int genreIndex = cursor.getColumnIndex(DjDao.DJColumns.SUBGENRE.toString());
+        int imageIndex = cursor.getColumnIndex(DjDao.DJColumns.IMAGE_URL.toString());
 /*
         DJ dj = new DJ(cursor.getString(nameIndex),
                 cursor.getString(genreIndex),
@@ -61,11 +56,11 @@ public class DJAdapter extends CursorRecyclerViewAdapter<DJHolder>{
         holder.name.setText(cursor.getString(nameIndex));
         holder.description.setText(cursor.getString(genreIndex) + "\n" + cursor.getString(nationalityIndex));
         try {
-            URL url = new URL(cursor.getString(imageIndex));
-            HttpURLConnection connection = ((HttpURLConnection) url.openConnection());
-            Log.e("response code", String.valueOf(connection.getResponseCode()));
-            Bitmap bmp = BitmapFactory.decodeStream(connection.getInputStream());
-            holder.image.setImageBitmap(bmp);
+           // URL url = new URL(cursor.getString(imageIndex));
+           // HttpURLConnection connection = ((HttpURLConnection) url.openConnection());
+           // Log.e("response code", String.valueOf(connection.getResponseCode()));
+           // Bitmap bmp = BitmapFactory.decodeStream(connection.getInputStream());
+            Glide.with(holder.image.getContext()).load(cursor.getString(imageIndex)).override(600,400).into(holder.image);
         } catch (Exception e) {
             holder.image.setImageResource(R.drawable.main);
             e.printStackTrace();

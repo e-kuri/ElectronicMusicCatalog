@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "929723349121",
+    "firebase_url": "https://dj-catalog.firebaseio.com",
+    "project_id": "dj-catalog",
+    "storage_bucket": "dj-catalog.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:929723349121:android:8c1a63254b766a4f",
+        "android_client_info": {
+          "package_name": "com.example.admin.emc"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "929723349121-u35rdrqdqk0m0ckcdt8a20ncf4fs3q1c.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDzC_L-59OKC7zZ6d5JxkTHKvjyc7dOIcg"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
