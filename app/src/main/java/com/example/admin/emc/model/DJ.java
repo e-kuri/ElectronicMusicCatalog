@@ -1,23 +1,22 @@
 package com.example.admin.emc.model;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Created by admin on 7/7/2016.
  */
-public class DJ implements Serializable{
+public class DJ {
 
     private String username;
     private String name;
-    private List<Genre.GenreName> genres;
+    private List<String> genres;
     private String nationality;
     private String imageURL;
     private List<Track> tracks;
     private String description;
 
-    public DJ(String name, List<Genre.GenreName> genres, String nationality, String imageURL){
+    public DJ(String name, List<String> genres, String nationality, String imageURL){
         this.name = name;
         this.genres = genres;
         this.nationality = nationality;
@@ -25,16 +24,16 @@ public class DJ implements Serializable{
         tracks = new ArrayList<>();
     }
 
-    public DJ(String username, String name, List<Genre.GenreName> genres, String nationality, String imageURL, List<Track> tracks) {
+    public DJ(String username, String name, List<String> genres, String nationality, String imageURL, String description) {
         this.username = username;
         this.name = name;
         this.genres = genres;
         this.nationality = nationality;
         this.imageURL = imageURL;
-        this.tracks = tracks;
+        this.description = description;
     }
 
-    public DJ(String imageURL, String nationality, List<Genre.GenreName> genres, String name, String description) {
+    public DJ(String name, List<String> genres, String nationality, String imageURL, String description) {
         this.imageURL = imageURL;
         this.nationality = nationality;
         this.genres = genres;
@@ -48,7 +47,7 @@ public class DJ implements Serializable{
         return name;
     }
 
-    public List<Genre.GenreName> getGenres() {
+    public List<String> getGenres() {
         return genres;
     }
 

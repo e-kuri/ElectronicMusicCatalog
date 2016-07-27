@@ -1,9 +1,11 @@
 package com.example.admin.emc.model;
 
+import java.io.Serializable;
+
 /**
  * Created by admin on 7/25/2016.
  */
-public class Track {
+public class Track implements Serializable{
 
     private String name;
     private String url;

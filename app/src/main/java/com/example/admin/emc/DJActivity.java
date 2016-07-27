@@ -9,9 +9,11 @@ import android.support.v7.widget.RecyclerView;
 
 import com.example.admin.emc.SQLite.DJAdapter;
 import com.example.admin.emc.db.DAO.DjDao;
+import com.example.admin.emc.db.Firebase.DJDaoFirebaseImpl;
 import com.example.admin.emc.model.DJ;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 
 import java.util.List;
 
@@ -26,6 +28,7 @@ public class DJActivity extends AppCompatActivity {
 
     private DatabaseReference ref;
     private DatabaseReference djRef;
+    private DjDao djDao = DJDaoFirebaseImpl.getInstance();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,9 +42,12 @@ public class DJActivity extends AppCompatActivity {
         //new DBAccessAsyncTask().execute();
         recyclerView.setLayoutManager(new LinearLayoutManager(DJActivity.this));
         recyclerView.setItemAnimator(new DefaultItemAnimator());
-
-        ref = FirebaseDatabase.getInstance().getReference();
-        djRef = ref.child(DjDao.TABLE_NAME);
+        DatabaseReference ref = FirebaseDatabase.getInstance().getReference().child(DjDao.TABLE_NAME);
+        Query lastFifty = ref.limitToLast(50);
+        FirebaseDJAdapter firebaseAdapter = new FirebaseDJAdapter(R.layout.dj_layout,  lastFifty);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
+        recyclerView.setItemAnimator(new DefaultItemAnimator());
+        recyclerView.setAdapter(firebaseAdapter);
 
 
         /*

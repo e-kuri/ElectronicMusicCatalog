@@ -9,6 +9,8 @@ import android.database.sqlite.SQLiteException;
 import com.example.admin.emc.db.DAO.DjDao;
 import com.example.admin.emc.model.DJ;
 
+import java.util.List;
+
 /**
  * Created by admin on 7/24/2016.
  */
@@ -26,17 +28,17 @@ public class DJDaoSQLiteImpl implements DjDao {
     }
 
     @Override
-    public void deleteDJ(int id) {
+    public void deleteDJ(String username) {
 
     }
 
     @Override
-    public DJ getDJById(int id) {
+    public DJ getDJByUsername(String username) {
         return null;
     }
 
     @Override
-    public Cursor getAllDJsForCursor(){
+    public List<DJ> getAllDJs() {
         return null;
     }
 

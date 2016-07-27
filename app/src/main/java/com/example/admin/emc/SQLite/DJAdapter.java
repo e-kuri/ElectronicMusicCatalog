@@ -42,17 +42,17 @@ public class DJAdapter extends CursorRecyclerViewAdapter<DJHolder>{
     @Override
     public void onBindViewHolder(DJHolder holder, Cursor cursor) {
         //DJ dj = DJList.get(position);
-
+/*
         int nameIndex = cursor.getColumnIndex(DjDao.DJColumns.NAME.toString());
         int nationalityIndex = cursor.getColumnIndex(DjDao.DJColumns.NATIONALITY.toString());
         int genreIndex = cursor.getColumnIndex(DjDao.DJColumns.SUBGENRE.toString());
         int imageIndex = cursor.getColumnIndex(DjDao.DJColumns.IMAGE_URL.toString());
-/*
+
         DJ dj = new DJ(cursor.getString(nameIndex),
                 cursor.getString(genreIndex),
                 cursor.getString(nationalityIndex),
                 cursor.getString(imageIndex));
-*/
+
         holder.name.setText(cursor.getString(nameIndex));
         holder.description.setText(cursor.getString(genreIndex) + "\n" + cursor.getString(nationalityIndex));
         try {
@@ -65,7 +65,7 @@ public class DJAdapter extends CursorRecyclerViewAdapter<DJHolder>{
             holder.image.setImageResource(R.drawable.main);
             e.printStackTrace();
         }
-
+*/
     }
 
 

@@ -15,11 +15,13 @@ import java.util.List;
  */
 public class FirebaseHelper {
 
-    public static void initializeDB(){
-        DatabaseReference db = FirebaseDatabase.getInstance().getReference().child(GenreDao.TABLE_NAME);
+    private static DjDao djDao = DJDaoFirebaseImpl.getInstance();
+    private static GenreDao genreDao = GenreDAOFirebaseImpl.getInstance();
 
+    public static void initializeDB(){
+        Genre genre = new Genre();
         for(Genre.GenreName genreName : Genre.GenreName.values()){
-            Genre genre = new Genre();
+            genre.setGenre(genreName.toString());
             switch (genreName){
                 case TECHNO:
                     genre.setImageUrl("https://i.ytimg.com/vi/-TlQIFKot_0/hqdefault.jpg");
@@ -34,15 +36,14 @@ public class FirebaseHelper {
                     genre.setImageUrl("http://factmag-images.s3.amazonaws.com/wp-content/uploads/2015/12/trance3-12.11.2015.png");
                     break;
             }
-            db.child(genreName.toString()).setValue(genre);
+            genreDao.insertGenre(genre);
         }
 
 
-        db = FirebaseDatabase.getInstance().getReference().child(DjDao.TABLE_NAME);
-        List<Genre.GenreName> genreNames = new ArrayList<>();
-        genreNames.add(Genre.GenreName.TECHNO);
-        DJ dj = new DJ("https://i.ytimg.com/vi/gZrXGG0bINg/maxresdefault.jpg", "Germany", genreNames, "Dubfire", "God");
-        db.child("dubfire").setValue(dj);
+        List<String> genreNames = new ArrayList<>();
+        genreNames.add(Genre.GenreName.TECHNO.toString());
+        DJ dj = new DJ("dubfire", "Dubfire", genreNames, "Germany", "https://i.ytimg.com/vi/gZrXGG0bINg/maxresdefault.jpg" , "God");
+        djDao.insertDJ(dj);
     }
 
 }

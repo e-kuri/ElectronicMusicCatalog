@@ -30,7 +30,7 @@ public class DJSQLiteHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
 
-        StringBuilder query = new StringBuilder(100);
+ /*       StringBuilder query = new StringBuilder(100);
         query.append("CREATE TABLE ").append(GenreDao.TABLE_NAME).append("(")
                 .append(GenreDao.Columns._id).append(" INTEGER PRIMARY KEY AUTOINCREMENT, ")
                 .append(GenreDao.Columns.GENRE).append(" TEXT);");
@@ -43,8 +43,8 @@ public class DJSQLiteHelper extends SQLiteOpenHelper {
                 .append(SubGenreDao.Columns.ID_GENRE).append(" INTEGER, ")
                 .append("FOREIGN KEY (").append(SubGenreDao.Columns.ID_GENRE)
                 .append(") REFERENCES ").append(GenreDao.TABLE_NAME).append("(").append("_id").append(");");
-        sqLiteDatabase.execSQL(query.toString());
-
+        sqLiteDatabase.execSQL(query.toString());*/
+/*
         query.setLength(0);
         query.append("CREATE TABLE ").append(DjDao.TABLE_NAME).append("(")
                 .append(DjDao.DJColumns._id).append(" INTEGER PRIMARY KEY AUTOINCREMENT, ")
@@ -73,11 +73,6 @@ public class DJSQLiteHelper extends SQLiteOpenHelper {
 
     }
 
-    @Override
-    public void onUpgrade(SQLiteDatabase sqLiteDatabase, int i, int i1) {
-
-    }
-
     private void insertDJ(SQLiteDatabase db, String name, String genre, String nationality, String imageURL){
         try{
             ContentValues values = new ContentValues();
@@ -89,5 +84,10 @@ public class DJSQLiteHelper extends SQLiteOpenHelper {
         }catch (Exception e){
             e.printStackTrace();
         }
+    */}
+
+    @Override
+    public void onUpgrade(SQLiteDatabase sqLiteDatabase, int i, int i1) {
+
     }
 }
