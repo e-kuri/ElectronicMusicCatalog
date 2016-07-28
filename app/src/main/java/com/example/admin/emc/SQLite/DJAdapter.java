@@ -6,16 +6,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.bumptech.glide.Glide;
-import com.example.admin.emc.DJHolder;
 import com.example.admin.emc.R;
-import com.example.admin.emc.db.DAO.DjDao;
 
 /**
  * Created by admin on 7/13/2016.
  */
-public class DJAdapter extends CursorRecyclerViewAdapter<DJHolder>{
 /*
+public class DJAdapter extends CursorRecyclerViewAdapter<DJHolder>{
+
     private List<DJ> DJList;
 
     public DJAdapter(List<DJ> djs){
@@ -25,7 +23,7 @@ public class DJAdapter extends CursorRecyclerViewAdapter<DJHolder>{
     public DJAdapter(DJ[] djs){
         DJList = Arrays.asList(djs);
     }
-*/
+
 
     private Cursor cursor;
 
@@ -65,8 +63,9 @@ public class DJAdapter extends CursorRecyclerViewAdapter<DJHolder>{
             holder.image.setImageResource(R.drawable.main);
             e.printStackTrace();
         }
-*/
+
     }
 
 
 }
+*/

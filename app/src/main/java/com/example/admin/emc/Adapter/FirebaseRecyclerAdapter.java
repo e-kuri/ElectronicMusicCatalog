@@ -1,4 +1,4 @@
-package com.example.admin.emc;
+package com.example.admin.emc.Adapter;
 
 /*
  * Copyright 2016 Google Inc. All Rights Reserved.
@@ -26,6 +26,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.admin.emc.Adapter.FirebaseArray;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.Query;
@@ -160,6 +161,10 @@ public abstract class FirebaseRecyclerAdapter<T, VH extends RecyclerView.ViewHol
     public long getItemId(int position) {
         // http://stackoverflow.com/questions/5100071/whats-the-purpose-of-item-ids-in-android-listview-adapter
         return mSnapshots.getItem(position).getKey().hashCode();
+    }
+
+    public String getItemKey(int position){
+        return mSnapshots.getItem(position).getKey();
     }
 
     @Override

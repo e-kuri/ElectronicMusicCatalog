@@ -7,7 +7,7 @@ import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
-import com.example.admin.emc.SQLite.DJAdapter;
+import com.example.admin.emc.Adapter.FirebaseDJAdapter;
 import com.example.admin.emc.db.DAO.DjDao;
 import com.example.admin.emc.db.Firebase.DJDaoFirebaseImpl;
 import com.example.admin.emc.model.DJ;
@@ -21,7 +21,7 @@ public class DJActivity extends AppCompatActivity {
 
     private List<DJ> djs;
     private RecyclerView recyclerView;
-    private DJAdapter djAdapter;
+    //private DJAdapter djAdapter;
     //private SQLiteDatabase db = null;
     //private Cursor cursor = null;
     private SQLiteOpenHelper djDatabaseHelper;
@@ -40,13 +40,13 @@ public class DJActivity extends AppCompatActivity {
 
         //djDatabaseHelper = new DJSQLiteHelper(getApplicationContext());
         //new DBAccessAsyncTask().execute();
-        recyclerView.setLayoutManager(new LinearLayoutManager(DJActivity.this));
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         DatabaseReference ref = FirebaseDatabase.getInstance().getReference().child(DjDao.TABLE_NAME);
         Query lastFifty = ref.limitToLast(50);
         FirebaseDJAdapter firebaseAdapter = new FirebaseDJAdapter(R.layout.dj_layout,  lastFifty);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
-        recyclerView.setItemAnimator(new DefaultItemAnimator());
+        //recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
+        //recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setAdapter(firebaseAdapter);
 
 
