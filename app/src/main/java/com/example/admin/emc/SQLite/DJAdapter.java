@@ -33,7 +33,7 @@ public class DJAdapter extends CursorRecyclerViewAdapter<DJHolder>{
 
     @Override
     public DJHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View viewItem = LayoutInflater.from(parent.getContext()).inflate(R.layout.dj_layout, parent, false);
+        View viewItem = LayoutInflater.from(parent.getContext()).inflate(R.layout.dj_detail_layout, parent, false);
         return new DJHolder(viewItem);
     }
 

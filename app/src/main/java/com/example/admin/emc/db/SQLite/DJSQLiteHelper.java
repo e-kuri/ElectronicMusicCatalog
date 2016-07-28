@@ -1,17 +1,10 @@
 package com.example.admin.emc.db.SQLite;
 
-import android.content.ContentValues;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
 import com.example.admin.emc.R;
-import com.example.admin.emc.db.DAO.DjDao;
-import com.example.admin.emc.db.DAO.DjSubgenreDao;
-import com.example.admin.emc.db.DAO.GenreDao;
-import com.example.admin.emc.db.DAO.SubGenreDao;
-import com.example.admin.emc.model.Genre;
-import com.example.admin.emc.model.SubGenre;
 
 /**
  * Created by admin on 7/16/2016.
