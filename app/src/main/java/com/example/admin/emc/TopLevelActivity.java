@@ -59,24 +59,6 @@ public class TopLevelActivity extends AppCompatActivity {
             }
         });
         recyclerView.setAdapter(genreAdapter);
-/*
-        AdapterView.OnItemClickListener listViewClickListener = new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                switch (i){
-                    case 0:
-                        Intent intent = new Intent(TopLevelActivity.this, DJActivity.class);
-                        startActivity(intent);
-                        break;
-                    default:
-                        Toast.makeText(TopLevelActivity.this, R.string.not_supported, Toast.LENGTH_SHORT).show();
-                        break;
-                }
-            }
-        };
-
-        lv.setOnItemClickListener(listViewClickListener);
-*/
         FirebaseHelper.initializeDB();
     }
 }
