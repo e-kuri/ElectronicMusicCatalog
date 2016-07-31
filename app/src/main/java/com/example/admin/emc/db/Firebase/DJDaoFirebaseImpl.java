@@ -1,10 +1,15 @@
 package com.example.admin.emc.db.Firebase;
 
+import android.util.Log;
+
 import com.example.admin.emc.db.DAO.DjDao;
 import com.example.admin.emc.model.DJ;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseException;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.List;
 
@@ -37,7 +42,20 @@ public class DJDaoFirebaseImpl implements DjDao {
 
     @Override
     public DJ getDJByUsername(String username) {
-        return null;
+        DatabaseReference ref = db.child(username);
+        final DJ[] dj = new DJ[1];
+        ref.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                dj[0] = dataSnapshot.getValue(DJ.class);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                Log.e("DJDaoFirebaseImpl: get", "Error accessing db: " + databaseError.getMessage());
+            }
+        });
+        return dj[0];
     }
 
     @Override

@@ -29,9 +29,15 @@ public class FirebaseDjListAdapter extends FirebaseRecyclerAdapter<DJ, FirebaseD
     }
 
     @Override
-    protected void populateViewHolder(ViewHolder viewHolder, DJ model, int position) {
+    protected void populateViewHolder(ViewHolder viewHolder, DJ model, final int position) {
         viewHolder.name.setText(model.getName());
         viewHolder.nationality.setText(model.getNationality());
+        viewHolder.layout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                listener.onclick(getItemKey(position));
+            }
+        });
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
@@ -46,4 +52,5 @@ public class FirebaseDjListAdapter extends FirebaseRecyclerAdapter<DJ, FirebaseD
             nationality = ((TextView) itemView.findViewById(R.id.dj_nationality));
         }
     }
+
 }

@@ -2,6 +2,7 @@ package com.example.admin.emc.model;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by admin on 7/7/2016.

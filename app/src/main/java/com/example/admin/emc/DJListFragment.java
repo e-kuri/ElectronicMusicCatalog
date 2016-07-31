@@ -1,6 +1,7 @@
 package com.example.admin.emc;
 
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.DefaultItemAnimator;
@@ -11,7 +12,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.example.admin.emc.Adapter.FirebaseDJAdapter;
 import com.example.admin.emc.Adapter.FirebaseDjListAdapter;
 import com.example.admin.emc.R;
 import com.example.admin.emc.db.DAO.DjDao;
@@ -25,6 +25,11 @@ import com.google.firebase.database.Query;
 public class DJListFragment extends Fragment {
 
     private RecyclerView recyclerView;
+    private DjListListener listListener;
+
+    static interface DjListListener{
+        void itemClicked(String key);
+    }
 
     public DJListFragment() {
         // Required empty public constructor
@@ -52,11 +57,19 @@ public class DJListFragment extends Fragment {
             FirebaseDjListAdapter firebaseAdapter = new FirebaseDjListAdapter(R.layout.dj_list_layout, lastFifty, new FirebaseDjListAdapter.Listener() {
                 @Override
                 public void onclick(String key) {
-
+                    if(listListener != null){
+                        listListener.itemClicked(key);
+                    }
                 }
             });
             recyclerView.setAdapter(firebaseAdapter);
             recyclerView.setAdapter(firebaseAdapter);
         }
+    }
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        this.listListener = (DjListListener) context;
     }
 }

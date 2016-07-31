@@ -42,8 +42,8 @@ public class FirebaseHelper {
 
         List<String> genreNames = new ArrayList<>();
         genreNames.add(Genre.GenreName.TECHNO.toString());
-        DJ dj = new DJ("dubfire", "Dubfire", genreNames, "Germany", "https://i.ytimg.com/vi/gZrXGG0bINg/maxresdefault.jpg" , "God");
-        djDao.insertDJ(dj);
+        djDao.insertDJ(new DJ("dubfire", "Dubfire", genreNames, "Germany", "https://i.ytimg.com/vi/gZrXGG0bINg/maxresdefault.jpg" , "God"));
+        djDao.insertDJ(new DJ("maceo", "Maceo Plex", genreNames, "USA", "http://www.6am-group.com/wp-content/uploads/2015/07/maceo-plex0.jpg" , "Techno Master"));
     }
 
 }
