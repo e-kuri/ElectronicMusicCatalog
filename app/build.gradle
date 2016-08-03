@@ -5,6 +5,7 @@ android {
     buildToolsVersion "24.0.0"
 
     defaultConfig {
+        vectorDrawables.useSupportLibrary = true
         applicationId "com.example.admin.emc"
         minSdkVersion 17
         targetSdkVersion 24
