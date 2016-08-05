@@ -15,12 +15,16 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.crashlytics.android.Crashlytics;
 import com.example.admin.emc.Adapter.FirebaseGenreAdapter;
 import com.example.admin.emc.db.DAO.GenreDao;
 import com.example.admin.emc.db.Firebase.FirebaseHelper;
+import com.google.android.gms.tasks.RuntimeExecutionException;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
+
+import io.fabric.sdk.android.Fabric;
 
 public class TopLevelActivity extends AppCompatActivity {
 
@@ -35,6 +39,8 @@ public class TopLevelActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Fabric.with(this, new Crashlytics());
+
         setContentView(R.layout.activity_top_level);
         titles = getResources().getStringArray(R.array.titles);
         drawerList = ((ListView) findViewById(R.id.drawer));
@@ -70,6 +76,8 @@ public class TopLevelActivity extends AppCompatActivity {
 
         @Override
         public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+            throw new RuntimeException("This is a crash!");
+            /*
             Fragment fragment;
             switch (i){
                 case 0:
@@ -81,7 +89,8 @@ public class TopLevelActivity extends AppCompatActivity {
                     break;
                 default:
                     break;
-            }
+            }*/
         }
     }
+
 }
