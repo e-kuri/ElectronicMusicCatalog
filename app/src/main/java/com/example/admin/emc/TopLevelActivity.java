@@ -1,6 +1,8 @@
 package com.example.admin.emc;
 
+import android.app.Application;
 import android.app.Fragment;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Point;
 import android.graphics.Rect;
@@ -23,6 +25,8 @@ import com.google.android.gms.tasks.RuntimeExecutionException;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
+import com.squareup.leakcanary.LeakCanary;
+import com.squareup.leakcanary.RefWatcher;
 
 import io.fabric.sdk.android.Fabric;
 
