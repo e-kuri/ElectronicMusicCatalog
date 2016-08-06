@@ -18,8 +18,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".DJActivity" />
-        <activity android:name=".DjDetailActivity"></activity>
+        <activity android:name=".DJFragment" />
+
         <meta-data
             android:name="io.fabric.ApiKey"
             android:value="a581ae178ef8f46117ecbee72179a362f0e33cd6" />
