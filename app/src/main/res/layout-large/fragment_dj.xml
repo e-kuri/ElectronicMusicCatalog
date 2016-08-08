@@ -7,7 +7,7 @@
     <FrameLayout
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        class="com.example.admin.emc.DJListFragment"
+        class="com.example.admin.emc.presentation.fragment.DJListFragment"
         android:id="@+id/djlist_fragment"
         android:layout_weight="1" />
 

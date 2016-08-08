@@ -1,4 +1,4 @@
-package com.example.admin.emc.Adapter;
+package com.example.admin.emc.domain.Adapter;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -7,7 +7,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.example.admin.emc.R;
-import com.example.admin.emc.model.DJ;
+import com.example.admin.emc.data.model.DJ;
 import com.google.firebase.database.Query;
 
 /**
