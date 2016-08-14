@@ -2,6 +2,7 @@ package com.example.admin.emc.presentation.activity;
 
 import android.content.res.Configuration;
 import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -15,19 +16,21 @@ import android.widget.FrameLayout;
 import android.widget.ListView;
 
 import com.example.admin.emc.R;
+import com.example.admin.emc.domain.event.ChangeFragmentEvent;
 import com.example.admin.emc.presentation.fragment.DJDetailFragment;
 import com.example.admin.emc.presentation.fragment.DJFragment;
 import com.example.admin.emc.presentation.fragment.DJListFragment;
-import com.example.admin.emc.presentation.fragment.IFragmentPresenter;
-import com.example.admin.emc.presentation.fragment.ParentFragment;
 import com.example.admin.emc.presentation.fragment.TopLevelFragment;
 
-public class TopLevelActivity extends AppCompatActivity implements IFragmentPresenter, DJListFragment.DjListListener {
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+
+public class TopLevelActivity extends AppCompatActivity implements DJListFragment.DjListListener {
 
     private String[] titles;
     private ListView drawerList;
     private FrameLayout container;
-    ParentFragment fragment;
+    Fragment fragment;
     private DrawerLayout drawerLayout;
     private ActionBarDrawerToggle drawerToggle;
     //private android.support.v4.app.Fragment topFragment;
@@ -100,9 +103,38 @@ public class TopLevelActivity extends AppCompatActivity implements IFragmentPres
 
     }
 
+    @Override
+    protected void onStart() {
+        try {
+            super.onStart();
+            EventBus.getDefault().register(this);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        EventBus.getDefault().unregister(this);
+    }
+
+    @Subscribe
+    public void  onEvent(ChangeFragmentEvent event){
+        switch (event.getView()){
+            case DJ_LIST:
+                showDJList();
+                break;
+            case DJ_INFO:
+                break;
+            case MAIN:
+                break;
+        }
+    }
+
     public void goToMain(boolean firstLoad){
         fragment = new TopLevelFragment();
-        fragment.setFragmentPresenter(this);
+        //fragment.setFragmentPresenter(this);
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.replace(R.id.main_frame, fragment, null);
         if(!firstLoad)
@@ -112,7 +144,7 @@ public class TopLevelActivity extends AppCompatActivity implements IFragmentPres
 
     public void showDJList(){
         fragment = new DJFragment();
-        fragment.setFragmentPresenter(this);
+        //fragment.setFragmentPresenter(this);
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.replace(R.id.main_frame, fragment, null);
         transaction.addToBackStack(null);
@@ -120,11 +152,6 @@ public class TopLevelActivity extends AppCompatActivity implements IFragmentPres
     }
 
     public void showDJInfo(String key){
-
-    }
-
-    @Override
-    public void itemClicked(String key) {
         View fragmentContainer = findViewById(R.id.fragment_container);
         if(fragmentContainer != null){
             DJDetailFragment detailFragment = new DJDetailFragment();
@@ -144,5 +171,10 @@ public class TopLevelActivity extends AppCompatActivity implements IFragmentPres
             transaction.commit();
 
         }
+    }
+
+    @Override
+    public void itemClicked(String key) {
+        showDJInfo(key);
     }
 }

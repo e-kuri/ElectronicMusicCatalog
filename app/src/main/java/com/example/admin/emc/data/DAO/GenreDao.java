@@ -1,6 +1,7 @@
 package com.example.admin.emc.data.DAO;
 
 import com.example.admin.emc.data.model.Genre;
+import com.example.admin.emc.domain.callback.IGenreCallback;
 
 import java.util.List;
 
@@ -13,5 +14,5 @@ public interface GenreDao {
     void insertGenre(Genre genre);
     void deleteGenre(String genre);
     void getGenreByName(String genre);
-    List<Genre> GetAllGenres();
+    void GetAllGenres(IGenreCallback.GenreListCallback callback);
 }

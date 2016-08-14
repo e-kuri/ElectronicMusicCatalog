@@ -1,5 +1,6 @@
 package com.example.admin.emc.data.DAO;
 
+import com.example.admin.emc.domain.callback.IDJCallback;
 import com.example.admin.emc.data.model.DJ;
 
 import java.util.List;
@@ -13,6 +14,7 @@ public interface DjDao {
 
     void insertDJ(DJ dj);
     void deleteDJ(String username);
-    DJ getDJByUsername(String username);
+    void getDJByUsername(String username, IDJCallback.DJDetailCallback callback);
     List<DJ> getAllDJs();
+    void getDJsByGenre(String genre, IDJCallback.DJListCallback callback);
 }

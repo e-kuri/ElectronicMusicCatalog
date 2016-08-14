@@ -1,6 +1,7 @@
 package com.example.admin.emc.presentation.fragment;
 
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,20 +12,26 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.example.admin.emc.R;
 import com.example.admin.emc.data.DAO.DjDao;
+import com.example.admin.emc.data.Firebase.DJDaoFirebaseImpl;
+import com.example.admin.emc.domain.callback.IDJCallback;
 import com.example.admin.emc.data.model.DJ;
-import com.google.firebase.database.DataSnapshot;
+import com.example.admin.emc.presentation.presenter.DetailPresenter;
+import com.example.admin.emc.presentation.presenter.IPresenter.DetailContract;
 import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 
 
-public class DJDetailFragment extends Fragment {
+public class DJDetailFragment extends Fragment implements DetailContract.View {
 
     private String key;
     private TextView name, description;
     private ImageView image;
     private static final String SAVED_KEY = "KEY";
+    private DetailContract.UserActionListener presenter;
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -44,52 +51,25 @@ public class DJDetailFragment extends Fragment {
     @Override
     public void onStart() {
         super.onStart();
+        presenter = new DetailPresenter(DJDaoFirebaseImpl.getInstance(), this);
         View view = getView();
         if(view != null){
 
             name = ((TextView) view.findViewById(R.id.name));
             description = ((TextView) view.findViewById(R.id.description));
             image = ((ImageView) view.findViewById(R.id.image));
-            /*
-            recyclerView = ((RecyclerView) view.findViewById(R.id.recycler_view));
 
-            recyclerView.setLayoutManager(new LinearLayoutManager(view.getContext()));
-            recyclerView.setItemAnimator(new DefaultItemAnimator());
-            DatabaseReference ref = FirebaseDatabase.getInstance().getReference().child(DjDao.TABLE_NAME);
-            Query lastFifty = ref.limitToLast(50);
-            FirebaseDJAdapter firebaseAdapter = new FirebaseDJAdapter(R.layout.dj_detail_layout,  lastFifty);
-            recyclerView.setAdapter(firebaseAdapter);
-            Log.d("DJDetailFragment", "onStart: " + genre);
-            */
-
-            if(key != null){
-                DatabaseReference ref = FirebaseDatabase.getInstance().getReference().child(DjDao.TABLE_NAME).child(key);
-                ref.addValueEventListener(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(DataSnapshot dataSnapshot) {
-                        DJ dj = dataSnapshot.getValue(DJ.class);
-                        setData(dj);
-                    }
-
-                    @Override
-                    public void onCancelled(DatabaseError databaseError) {
-
-                    }
-                });
-            }
-
+            presenter.getDjByUsername(key);
         }
     }
 
     @Override
     public void onStop() {
         super.onStop();
-        name = null;
-        description = null;
-        image = null;
+        presenter = null;
     }
 
-    private void setData(DJ dj){
+    public void setData(DJ dj){
         this.name.setText(dj.getName());
         this.description.setText(dj.getDescription());
         Glide.with(getContext()).load(dj.getImageURL()).override(600,400).into(image);

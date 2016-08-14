@@ -1,5 +1,6 @@
-package com.example.admin.emc.domain.Adapter;
+package com.example.admin.emc.domain.adapter;
 
+import android.os.Build;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -32,6 +33,10 @@ public class FirebaseGenreAdapter extends FirebaseRecyclerAdapter<Genre, Firebas
 
     @Override
     protected void populateViewHolder(ViewHolder viewHolder, Genre model, int position) {
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
+            viewHolder.genreImage.setImageDrawable(viewHolder.genreImage.getContext().getDrawable(R.drawable.main));
+        else
+            viewHolder.genreImage.setImageDrawable(viewHolder.genreImage.getContext().getResources().getDrawable(R.drawable.main));
         Glide.with(viewHolder.genreImage.getContext()).load(model.getImageUrl()).fitCenter().into(viewHolder.genreImage);
     }
 

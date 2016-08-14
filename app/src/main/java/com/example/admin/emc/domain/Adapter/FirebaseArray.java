@@ -1,4 +1,4 @@
-package com.example.admin.emc.domain.Adapter;
+package com.example.admin.emc.domain.adapter;
 
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;

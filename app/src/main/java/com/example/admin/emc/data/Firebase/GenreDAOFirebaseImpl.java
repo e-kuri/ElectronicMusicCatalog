@@ -2,8 +2,10 @@ package com.example.admin.emc.data.Firebase;
 
 import com.example.admin.emc.data.DAO.GenreDao;
 import com.example.admin.emc.data.model.Genre;
+import com.example.admin.emc.domain.callback.IGenreCallback;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 
 import java.util.List;
 
@@ -35,8 +37,9 @@ public class GenreDAOFirebaseImpl implements GenreDao {
     }
 
     @Override
-    public List<Genre> GetAllGenres() {
-        return null;
+    public void GetAllGenres(IGenreCallback.GenreListCallback callback) {
+        Query lastFifty = db.limitToLast(50);
+        callback.onSuccess(lastFifty);
     }
 
     public static GenreDAOFirebaseImpl getInstance(){

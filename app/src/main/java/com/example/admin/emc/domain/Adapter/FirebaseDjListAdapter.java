@@ -1,4 +1,4 @@
-package com.example.admin.emc.domain.Adapter;
+package com.example.admin.emc.domain.adapter;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.View;

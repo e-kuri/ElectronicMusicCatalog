@@ -1,4 +1,4 @@
-package com.example.admin.emc.domain.Adapter;
+package com.example.admin.emc.domain.adapter;
 
 /*
  * Copyright 2016 Google Inc. All Rights Reserved.
@@ -23,7 +23,6 @@ import java.lang.reflect.InvocationTargetException;
 
 import android.support.v7.widget.RecyclerView;
 
-import com.example.admin.emc.domain.Adapter.FirebaseArray;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.Query;

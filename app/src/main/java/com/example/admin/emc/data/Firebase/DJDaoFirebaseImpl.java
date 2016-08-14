@@ -1,14 +1,14 @@
 package com.example.admin.emc.data.Firebase;
 
-import android.util.Log;
-
 import com.example.admin.emc.data.DAO.DjDao;
+import com.example.admin.emc.domain.callback.IDJCallback;
 import com.example.admin.emc.data.model.DJ;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseException;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.List;
@@ -41,27 +41,33 @@ public class DJDaoFirebaseImpl implements DjDao {
     }
 
     @Override
-    public DJ getDJByUsername(String username) {
+    public void getDJByUsername(String username, final IDJCallback.DJDetailCallback callback) {
         DatabaseReference ref = db.child(username);
-        final DJ[] dj = new DJ[1];
         ref.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                dj[0] = dataSnapshot.getValue(DJ.class);
+                DJ dj = dataSnapshot.getValue(DJ.class);
+                callback.onSuccess(dj);
             }
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
-                Log.e("DJDaoFirebaseImpl: get", "Error accessing db: " + databaseError.getMessage());
+                callback.onError(databaseError);
             }
         });
-        return dj[0];
     }
 
     @Override
     public List<DJ> getAllDJs() {
         return null;
     }
+
+    @Override
+    public void getDJsByGenre(String genre, IDJCallback.DJListCallback callback) {
+        Query lastFifty = db.limitToLast(50);
+        callback.onSuccess(lastFifty);
+    }
+
 
     public static DJDaoFirebaseImpl getInstance(){
         if(instance == null)

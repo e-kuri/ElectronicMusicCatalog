@@ -12,21 +12,24 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.example.admin.emc.domain.Adapter.FirebaseDjListAdapter;
+import com.example.admin.emc.data.Firebase.DJDaoFirebaseImpl;
+import com.example.admin.emc.domain.callback.IDJCallback;
+import com.example.admin.emc.domain.adapter.FirebaseDjListAdapter;
 import com.example.admin.emc.R;
 import com.example.admin.emc.data.DAO.DjDao;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
+import com.example.admin.emc.presentation.presenter.DJListPresenter;
+import com.example.admin.emc.presentation.presenter.IPresenter.DJListContract;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.Query;
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class DJListFragment extends Fragment {
+public class DJListFragment extends Fragment implements DJListContract.View {
 
     private RecyclerView recyclerView;
     private DjListListener listListener;
-    private FirebaseDjListAdapter firebaseAdapter;
+    private DJListContract.UserActionListener presenter;
 
     public static interface DjListListener{
         void itemClicked(String key);
@@ -47,22 +50,25 @@ public class DJListFragment extends Fragment {
     @Override
     public void onStart() {
         super.onStart();
+        presenter = new DJListPresenter(this, DJDaoFirebaseImpl.getInstance());
         View view = getView();
         if (view != null) {
-            DatabaseReference ref = FirebaseDatabase.getInstance().getReference().child(DjDao.TABLE_NAME);
-            Query lastFifty = ref.limitToLast(50);
-            firebaseAdapter = new FirebaseDjListAdapter(R.layout.dj_list_layout, lastFifty, new FirebaseDjListAdapter.Listener() {
-                @Override
-                public void onclick(String key) {
-                    if(listListener != null){
-                        listListener.itemClicked(key);
-                    }
-                }
-            });
-            recyclerView.setAdapter(firebaseAdapter);
-            recyclerView.setAdapter(firebaseAdapter);
+            presenter.DJsByGenre(null);
         }
     }
+
+
+    @Override
+    public void afterDJsLoaded(FirebaseDjListAdapter adapter) {
+        recyclerView.setAdapter(adapter);
+    }
+
+    public void setListener(String key){
+        if(listListener != null){
+            listListener.itemClicked(key);
+        }
+    }
+
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
@@ -79,7 +85,7 @@ public class DJListFragment extends Fragment {
     @Override
     public void onStop() {
         super.onStop();
-        firebaseAdapter = null;
+        presenter = null;
     }
 
     @Override
@@ -87,14 +93,5 @@ public class DJListFragment extends Fragment {
         super.onAttach(context);
         this.listListener = (DjListListener) context;
     }
-/*
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        this.listListener = null;
-        firebaseAdapter = null;
-        recyclerView.setAdapter(null);
-        recyclerView = null;
-    }
-    */
+
 }

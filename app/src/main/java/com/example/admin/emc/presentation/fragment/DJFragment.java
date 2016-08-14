@@ -1,6 +1,7 @@
 package com.example.admin.emc.presentation.fragment;
 
 import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -9,10 +10,7 @@ import android.view.ViewGroup;
 
 import com.example.admin.emc.R;
 
-public class DJFragment extends ParentFragment {
-
-    //private RecyclerView recyclerView;
-    private IFragmentPresenter fragmentPresenter;
+public class DJFragment extends Fragment {
 
     @Nullable
     @Override
@@ -28,15 +26,5 @@ public class DJFragment extends ParentFragment {
         transaction.replace(R.id.djlist_fragment, new DJListFragment());
         transaction.commit();
     }
-/*
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        this.fragmentPresenter = null;
-    }
-*/
-    @Override
-    public void setFragmentPresenter(IFragmentPresenter fragmentPresenter) {
-        this.fragmentPresenter = fragmentPresenter;
-    }
+
 }
