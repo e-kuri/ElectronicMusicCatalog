@@ -1,52 +1,56 @@
 package com.example.admin.emc.presentation.presenter;
 
+import android.support.v7.widget.RecyclerView;
+
 import com.example.admin.emc.R;
-import com.example.admin.emc.data.DAO.GenreDao;
-import com.example.admin.emc.domain.adapter.FirebaseGenreAdapter;
+import com.example.admin.emc.domain.EMCApplication;
+import com.example.admin.emc.domain.adapter.builder.AdapterListener;
+import com.example.admin.emc.domain.adapter.builder.Exception.AdapterBuilderException;
 import com.example.admin.emc.domain.callback.IGenreCallback;
-import com.example.admin.emc.domain.event.ChangeFragmentEvent;
-import com.example.admin.emc.presentation.fragment.TopLevelFragment;
+import com.example.admin.emc.domain.di.component.DaggerGenreComponent;
+import com.example.admin.emc.domain.service.IService.IGenreService;
+import com.example.admin.emc.domain.service.exception.ServiceException;
 import com.example.admin.emc.presentation.presenter.IPresenter.GenreContract;
 import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.Query;
 
-import org.greenrobot.eventbus.EventBus;
+import javax.inject.Inject;
 
 /**
  * Created by admin on 8/12/2016.
  */
 public class GenrePresenter implements GenreContract.UserActionListener {
 
-    private final GenreContract.View view;
-    private final GenreDao genreDao;
+    private GenreContract.View view;
 
-    public GenrePresenter(GenreContract.View view, GenreDao genreDao){
+    @Inject
+    IGenreService genreService;
+
+    public GenrePresenter(GenreContract.View view){
         this.view = view;
-        this.genreDao = genreDao;
+        genreService = EMCApplication.getGenreComponent().getService();
     }
 
-
     @Override
-    public void getGenreAdapter(String key) {
-       // if(key == null){
-            genreDao.GetAllGenres(new IGenreCallback.GenreListCallback() {
-                @Override
-                public void onSuccess(Query query) {
-                    FirebaseGenreAdapter genreAdapter = new FirebaseGenreAdapter(R.layout.genre_layout, query, new FirebaseGenreAdapter.Listener() {
-                        @Override
-                        public void onclick(String key) {
-                            EventBus.getDefault().post(new ChangeFragmentEvent(ChangeFragmentEvent.View.DJ_LIST));
-                        }
-                    });
-                    view.genresLoaded(genreAdapter);
-                }
+    public void getGenreAdapter(int layout, String key, AdapterListener listener) {
+        if(key == null){
+            try {
+                genreService.getAllGenresAdapter(layout, listener, new IGenreCallback.GenreListCallback() {
+                    @Override
+                    public void onSuccess(RecyclerView.Adapter adapter) {
+                        view.genresLoaded(adapter);
+                    }
 
-                @Override
-                public void onError(DatabaseError error) {
+                    @Override
+                    public void onError(DatabaseError error) {
 
-                }
-            });
-       // }
+                    }
+                });
+            } catch (ServiceException e) {
+                e.printStackTrace();
+            } catch (AdapterBuilderException e) {
+                e.printStackTrace();
+            }
+
+        }
     }
 }

@@ -11,19 +11,16 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.admin.emc.data.Firebase.GenreDAOFirebaseImpl;
-import com.example.admin.emc.domain.adapter.FirebaseGenreAdapter;
 import com.example.admin.emc.R;
-import com.example.admin.emc.data.DAO.GenreDao;
-import com.example.admin.emc.domain.callback.IGenreCallback;
+import com.example.admin.emc.domain.adapter.firebase.FirebaseGenreAdapter;
 import com.example.admin.emc.domain.event.ChangeFragmentEvent;
+import com.example.admin.emc.domain.service.GenreServiceImpl;
 import com.example.admin.emc.presentation.presenter.GenrePresenter;
 import com.example.admin.emc.presentation.presenter.IPresenter.GenreContract;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.Query;
 
 import org.greenrobot.eventbus.EventBus;
 
-import java.util.List;
+import javax.inject.Inject;
 
 /**
  * Created by admin on 8/5/2016.
@@ -49,13 +46,18 @@ public class TopLevelFragment extends Fragment implements GenreContract.View {
         recyclerView = ((RecyclerView) getActivity().findViewById(R.id.GenresView));
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         recyclerView.setItemAnimator(new DefaultItemAnimator());
-        presenter = new GenrePresenter(this, GenreDAOFirebaseImpl.getInstance());
-        presenter.getGenreAdapter(null);
+        presenter = new GenrePresenter(this);
+        presenter.getGenreAdapter(R.layout.genre_layout, null, new FirebaseGenreAdapter.Listener() {
+            @Override
+            public void onclick(String key) {
+                EventBus.getDefault().post(new ChangeFragmentEvent(ChangeFragmentEvent.View.DJ_LIST));
+            }
+        });
     }
 
 
 
-    public void genresLoaded(FirebaseGenreAdapter genreAdapter){
+    public void genresLoaded(RecyclerView.Adapter genreAdapter){
         recyclerView.setAdapter(genreAdapter);
     }
 

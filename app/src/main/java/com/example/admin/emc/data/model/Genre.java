@@ -15,6 +15,7 @@ public class Genre{
     private List<String> djs;
     private String imageUrl;
 
+
     public Genre(String genre) {
         this.genre = genre;
     }

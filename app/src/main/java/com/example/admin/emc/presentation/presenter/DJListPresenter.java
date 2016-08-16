@@ -2,7 +2,7 @@ package com.example.admin.emc.presentation.presenter;
 
 import com.example.admin.emc.R;
 import com.example.admin.emc.data.DAO.DjDao;
-import com.example.admin.emc.domain.adapter.FirebaseDjListAdapter;
+import com.example.admin.emc.domain.adapter.firebase.FirebaseDjListAdapter;
 import com.example.admin.emc.domain.callback.IDJCallback;
 import com.example.admin.emc.presentation.presenter.IPresenter.DJListContract;
 import com.google.firebase.database.DatabaseError;

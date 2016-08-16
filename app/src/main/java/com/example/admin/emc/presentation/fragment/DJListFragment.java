@@ -13,14 +13,9 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.admin.emc.data.Firebase.DJDaoFirebaseImpl;
-import com.example.admin.emc.domain.callback.IDJCallback;
-import com.example.admin.emc.domain.adapter.FirebaseDjListAdapter;
 import com.example.admin.emc.R;
-import com.example.admin.emc.data.DAO.DjDao;
 import com.example.admin.emc.presentation.presenter.DJListPresenter;
 import com.example.admin.emc.presentation.presenter.IPresenter.DJListContract;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.Query;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -59,7 +54,7 @@ public class DJListFragment extends Fragment implements DJListContract.View {
 
 
     @Override
-    public void afterDJsLoaded(FirebaseDjListAdapter adapter) {
+    public void afterDJsLoaded(RecyclerView.Adapter adapter) {
         recyclerView.setAdapter(adapter);
     }
 

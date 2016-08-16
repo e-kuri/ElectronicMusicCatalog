@@ -1,6 +1,6 @@
 package com.example.admin.emc.presentation.presenter.IPresenter;
 
-import com.example.admin.emc.domain.adapter.FirebaseDjListAdapter;
+import android.support.v7.widget.RecyclerView;
 
 /**
  * Created by admin on 8/12/2016.
@@ -8,7 +8,7 @@ import com.example.admin.emc.domain.adapter.FirebaseDjListAdapter;
 public interface DJListContract {
 
     interface View{
-        void afterDJsLoaded(FirebaseDjListAdapter adapter);
+        void afterDJsLoaded(RecyclerView.Adapter adapter);
         void setListener(String string);
     }
 

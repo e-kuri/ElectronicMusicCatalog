@@ -1,7 +1,9 @@
 package com.example.admin.emc.presentation.presenter.IPresenter;
 
 
-import com.example.admin.emc.domain.adapter.FirebaseGenreAdapter;
+import android.support.v7.widget.RecyclerView;
+
+import com.example.admin.emc.domain.adapter.builder.AdapterListener;
 
 /**
  * Created by admin on 8/12/2016.
@@ -9,11 +11,11 @@ import com.example.admin.emc.domain.adapter.FirebaseGenreAdapter;
 public interface GenreContract {
 
     interface View {
-        void genresLoaded(FirebaseGenreAdapter genreAdapter);
+        void genresLoaded(RecyclerView.Adapter adapter);
     }
 
     interface UserActionListener{
-        void getGenreAdapter(String key);
+        void getGenreAdapter(int layout, String key, AdapterListener listener);
     }
 
 }

@@ -1,4 +1,4 @@
-package com.example.admin.emc.domain.adapter;
+package com.example.admin.emc.domain.adapter.firebase;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -7,6 +7,7 @@ import android.widget.TextView;
 
 import com.example.admin.emc.R;
 import com.example.admin.emc.data.model.DJ;
+import com.example.admin.emc.domain.adapter.builder.AdapterListener;
 import com.google.firebase.database.Query;
 
 /**
@@ -16,7 +17,7 @@ public class FirebaseDjListAdapter extends FirebaseRecyclerAdapter<DJ, FirebaseD
 
     private Listener listener;
 
-    public static interface Listener{
+    public static interface Listener extends AdapterListener{
         void onclick(String key);
     }
 

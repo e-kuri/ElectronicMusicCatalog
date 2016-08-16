@@ -4,6 +4,8 @@ import com.example.admin.emc.data.DAO.DjDao;
 import com.example.admin.emc.data.DAO.GenreDao;
 import com.example.admin.emc.data.model.DJ;
 import com.example.admin.emc.data.model.Genre;
+import com.example.admin.emc.domain.EMCApplication;
+import com.example.admin.emc.domain.di.component.DaggerGenreComponent;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,7 +16,7 @@ import java.util.List;
 public class FirebaseHelper {
 
     private static DjDao djDao = DJDaoFirebaseImpl.getInstance();
-    private static GenreDao genreDao = GenreDAOFirebaseImpl.getInstance();
+    private static GenreDao genreDao = EMCApplication.getGenreComponent().getDao();
 
     public static void initializeDB(){
         Genre genre = new Genre();

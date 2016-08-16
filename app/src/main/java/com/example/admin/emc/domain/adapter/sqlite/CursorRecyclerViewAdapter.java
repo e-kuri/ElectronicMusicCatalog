@@ -1,4 +1,4 @@
-package com.example.admin.emc.domain.adapter;
+package com.example.admin.emc.domain.adapter.sqlite;
 
 import android.content.Context;
 import android.database.Cursor;

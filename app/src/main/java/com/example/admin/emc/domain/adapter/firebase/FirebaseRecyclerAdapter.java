@@ -1,4 +1,4 @@
-package com.example.admin.emc.domain.adapter;
+package com.example.admin.emc.domain.adapter.firebase;
 
 /*
  * Copyright 2016 Google Inc. All Rights Reserved.
