@@ -16,7 +16,7 @@ import java.util.List;
 public class FirebaseHelper {
 
     private static DjDao djDao = DJDaoFirebaseImpl.getInstance();
-    private static GenreDao genreDao = EMCApplication.getGenreComponent().getDao();
+    private static GenreDao genreDao;// = EMCApplication.getGenreComponent().getDao();
 
     public static void initializeDB(){
         Genre genre = new Genre();

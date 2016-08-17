@@ -7,7 +7,6 @@ import com.example.admin.emc.domain.EMCApplication;
 import com.example.admin.emc.domain.adapter.builder.AdapterListener;
 import com.example.admin.emc.domain.adapter.builder.Exception.AdapterBuilderException;
 import com.example.admin.emc.domain.callback.IGenreCallback;
-import com.example.admin.emc.domain.di.component.DaggerGenreComponent;
 import com.example.admin.emc.domain.service.IService.IGenreService;
 import com.example.admin.emc.domain.service.exception.ServiceException;
 import com.example.admin.emc.presentation.presenter.IPresenter.GenreContract;
@@ -28,6 +27,7 @@ public class GenrePresenter implements GenreContract.UserActionListener {
     public GenrePresenter(GenreContract.View view){
         this.view = view;
         genreService = EMCApplication.getGenreComponent().getService();
+        //EMCApplication.getGenreComponent().injectIntoPresenter(this);
     }
 
     @Override

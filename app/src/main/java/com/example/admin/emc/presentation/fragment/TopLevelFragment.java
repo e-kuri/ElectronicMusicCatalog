@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 
 import com.example.admin.emc.data.Firebase.GenreDAOFirebaseImpl;
 import com.example.admin.emc.R;
+import com.example.admin.emc.domain.EMCApplication;
 import com.example.admin.emc.domain.adapter.firebase.FirebaseGenreAdapter;
 import com.example.admin.emc.domain.event.ChangeFragmentEvent;
 import com.example.admin.emc.domain.service.GenreServiceImpl;

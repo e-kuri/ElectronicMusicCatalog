@@ -23,7 +23,7 @@ public class GenreModule {
     }
 
     @Provides @Singleton static IGenreService provideGenreService(){
-        return new GenreServiceImpl(EMCApplication.getGenreComponent().getDao());
+        return new GenreServiceImpl(provideGenreDao()g);
     }
 
 
