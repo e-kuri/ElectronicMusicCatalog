@@ -16,6 +16,7 @@ public interface GenreContract {
 
     interface UserActionListener{
         void getGenreAdapter(int layout, String key, AdapterListener listener);
+        void setView(GenreContract.View view);
     }
 
 }

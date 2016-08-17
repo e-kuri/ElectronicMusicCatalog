@@ -9,6 +9,7 @@ import com.google.firebase.database.Query;
 public class FirebaseAdapterBuilderProperties extends AdapterBuilderProperties {
 
     private Query ref;
+    protected int modelLayout;
 
     public Query getRef() {
         return ref;
@@ -16,5 +17,13 @@ public class FirebaseAdapterBuilderProperties extends AdapterBuilderProperties {
 
     public void setRef(Query ref) {
         this.ref = ref;
+    }
+
+    public int getModelLayout() {
+        return modelLayout;
+    }
+
+    public void setModelLayout(int modelLayout) {
+        this.modelLayout = modelLayout;
     }
 }

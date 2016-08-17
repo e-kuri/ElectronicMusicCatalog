@@ -47,7 +47,8 @@ public class TopLevelFragment extends Fragment implements GenreContract.View {
         recyclerView = ((RecyclerView) getActivity().findViewById(R.id.GenresView));
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         recyclerView.setItemAnimator(new DefaultItemAnimator());
-        presenter = new GenrePresenter(this);
+        presenter = ((EMCApplication)(getActivity().getApplicationContext())).getGenreComponent().getPresenter();
+        presenter.setView(this);
         presenter.getGenreAdapter(R.layout.genre_layout, null, new FirebaseGenreAdapter.Listener() {
             @Override
             public void onclick(String key) {

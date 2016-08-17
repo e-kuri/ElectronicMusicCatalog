@@ -5,7 +5,6 @@ import com.example.admin.emc.data.DAO.GenreDao;
 import com.example.admin.emc.data.model.DJ;
 import com.example.admin.emc.data.model.Genre;
 import com.example.admin.emc.domain.EMCApplication;
-import com.example.admin.emc.domain.di.component.DaggerGenreComponent;
 
 import java.util.ArrayList;
 import java.util.List;

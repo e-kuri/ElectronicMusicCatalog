@@ -20,14 +20,11 @@ import javax.inject.Inject;
 public class GenrePresenter implements GenreContract.UserActionListener {
 
     private GenreContract.View view;
-
-    @Inject
     IGenreService genreService;
 
-    public GenrePresenter(GenreContract.View view){
-        this.view = view;
-        genreService = EMCApplication.getGenreComponent().getService();
-        //EMCApplication.getGenreComponent().injectIntoPresenter(this);
+    @Inject
+    public GenrePresenter(IGenreService service){
+        this.genreService = service;
     }
 
     @Override
@@ -52,5 +49,9 @@ public class GenrePresenter implements GenreContract.UserActionListener {
             }
 
         }
+    }
+
+    public void setView(GenreContract.View view) {
+        this.view = view;
     }
 }

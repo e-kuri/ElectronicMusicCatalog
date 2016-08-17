@@ -13,12 +13,13 @@ import com.squareup.leakcanary.RefWatcher;
 public class EMCApplication extends Application {
 
     private RefWatcher refWatcher;
-    private static GenreComponent genreComponent;
+    private GenreComponent genreComponent;
 
     @Override
     public void onCreate() {
         super.onCreate();
         refWatcher = LeakCanary.install(this);
+        genreComponent = DaggerGenreComponent.create();
         /*
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         SharedPreferences.Editor editor = preferences.edit();
@@ -27,10 +28,7 @@ public class EMCApplication extends Application {
         */
     }
 
-    public static GenreComponent getGenreComponent(){
-        if(genreComponent == null)
-            genreComponent = DaggerGenreComponent.create();
-
+    public GenreComponent getGenreComponent(){
         return genreComponent;
     }
 /*
