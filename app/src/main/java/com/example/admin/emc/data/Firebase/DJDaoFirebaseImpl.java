@@ -1,7 +1,14 @@
 package com.example.admin.emc.data.Firebase;
 
+import android.util.Log;
+
 import com.example.admin.emc.data.DAO.DjDao;
-import com.example.admin.emc.domain.callback.IDJCallback;
+import com.example.admin.emc.data.DAO.GenreDao;
+import com.example.admin.emc.domain.EMCApplication;
+import com.example.admin.emc.domain.adapter.builder.properties.ArrayAdapterProperties;
+import com.example.admin.emc.domain.adapter.builder.properties.FirebaseAdapterBuilderProperties;
+import com.example.admin.emc.domain.callback.IDJDetailCallback;
+import com.example.admin.emc.domain.callback.IDJListCallback;
 import com.example.admin.emc.data.model.DJ;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -11,19 +18,25 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
+
+import javax.inject.Inject;
 
 /**
  * Created by admin on 7/26/2016.
  */
 public class DJDaoFirebaseImpl implements DjDao {
 
-    private static DJDaoFirebaseImpl instance;
-    private DatabaseReference db = FirebaseDatabase.getInstance().getReference().child(DjDao.TABLE_NAME);
+    @Inject
+    GenreDao genreDao;
 
-    private DJDaoFirebaseImpl(){
-
+    public DJDaoFirebaseImpl(){
+        this.genreDao = EMCApplication.getGenreComponent().getDao();
     }
+
+    private DatabaseReference db = FirebaseDatabase.getInstance().getReference().child(DjDao.TABLE_NAME);
 
     @Override
     public void insertDJ(DJ dj) throws DatabaseException {
@@ -33,6 +46,13 @@ public class DJDaoFirebaseImpl implements DjDao {
         String username = dj.getUsername();
         dj.setUsername(null);
         db.child(username).setValue(dj);
+
+        Iterator it = dj.getGenres().entrySet().iterator();
+        while(it.hasNext()){
+            Map.Entry entry = (Map.Entry)it.next();
+            if((Boolean) entry.getValue() == true)
+                genreDao.insertDJ(entry.getKey().toString(), username);
+        }
     }
 
     @Override
@@ -41,7 +61,7 @@ public class DJDaoFirebaseImpl implements DjDao {
     }
 
     @Override
-    public void getDJByUsername(String username, final IDJCallback.DJDetailCallback callback) {
+    public void getDJByUsername(String username, final IDJDetailCallback.DJByUsernameDaoCallback callback) {
         DatabaseReference ref = db.child(username);
         ref.addValueEventListener(new ValueEventListener() {
             @Override
@@ -63,17 +83,25 @@ public class DJDaoFirebaseImpl implements DjDao {
     }
 
     @Override
-    public void getDJsByGenre(String genre, IDJCallback.DJListCallback callback) {
-        Query lastFifty = db.limitToLast(50);
-        callback.onSuccess(lastFifty);
-    }
+    public void getDJsByGenre(String genre, final IDJListCallback.DJListDbCallback callback) {
+        //Query genreQuery = genreDao.getDJsByGenre(genre);
+        FirebaseAdapterBuilderProperties properties = new FirebaseAdapterBuilderProperties();
+        properties.setRef(db);
 
+        callback.onSuccess(properties);
+/*
+        genreDao.getDJsByGenre(genre, new IDJListCallback.DJListResultCallback() {
+            @Override
+            public void onSuccess(List result) {
+                ArrayAdapterProperties properties = new ArrayAdapterProperties(result);
+                callback.onSuccess(properties);
+            }
 
-    public static DJDaoFirebaseImpl getInstance(){
-        if(instance == null)
-            instance = new DJDaoFirebaseImpl();
-
-        return instance;
+            @Override
+            public void onError(DatabaseError error) {
+                Log.e("DjDaoFirebaseImpl", error.getDetails());
+            }
+        });*/
     }
 
 }

@@ -11,13 +11,9 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.example.admin.emc.R;
-import com.example.admin.emc.data.DAO.DjDao;
-import com.example.admin.emc.data.Firebase.DJDaoFirebaseImpl;
-import com.example.admin.emc.domain.callback.IDJCallback;
 import com.example.admin.emc.data.model.DJ;
 import com.example.admin.emc.presentation.presenter.DetailPresenter;
 import com.example.admin.emc.presentation.presenter.IPresenter.DetailContract;
-import com.google.firebase.database.DatabaseError;
 
 
 public class DJDetailFragment extends Fragment implements DetailContract.View {
@@ -51,14 +47,13 @@ public class DJDetailFragment extends Fragment implements DetailContract.View {
     @Override
     public void onStart() {
         super.onStart();
-        presenter = new DetailPresenter(DJDaoFirebaseImpl.getInstance(), this);
+        presenter = new DetailPresenter(this);
         View view = getView();
         if(view != null){
 
             name = ((TextView) view.findViewById(R.id.name));
             description = ((TextView) view.findViewById(R.id.description));
             image = ((ImageView) view.findViewById(R.id.image));
-
             presenter.getDjByUsername(key);
         }
     }

@@ -14,6 +14,8 @@ import android.view.ViewGroup;
 
 import com.example.admin.emc.data.Firebase.DJDaoFirebaseImpl;
 import com.example.admin.emc.R;
+import com.example.admin.emc.domain.EMCApplication;
+import com.example.admin.emc.domain.adapter.firebase.FirebaseDjListAdapter;
 import com.example.admin.emc.presentation.presenter.DJListPresenter;
 import com.example.admin.emc.presentation.presenter.IPresenter.DJListContract;
 
@@ -25,6 +27,7 @@ public class DJListFragment extends Fragment implements DJListContract.View {
     private RecyclerView recyclerView;
     private DjListListener listListener;
     private DJListContract.UserActionListener presenter;
+    private String genre;
 
     public static interface DjListListener{
         void itemClicked(String key);
@@ -45,10 +48,15 @@ public class DJListFragment extends Fragment implements DJListContract.View {
     @Override
     public void onStart() {
         super.onStart();
-        presenter = new DJListPresenter(this, DJDaoFirebaseImpl.getInstance());
+        presenter = new DJListPresenter(this);
         View view = getView();
         if (view != null) {
-            presenter.DJsByGenre(null);
+            presenter.getDJAdapterByGenre(R.layout.dj_list_layout, genre, new FirebaseDjListAdapter.Listener() {
+                @Override
+                public void onclick(String key) {
+                    setListener(key);
+                }
+            });
         }
     }
 
@@ -87,6 +95,10 @@ public class DJListFragment extends Fragment implements DJListContract.View {
     public void onAttach(Context context) {
         super.onAttach(context);
         this.listListener = (DjListListener) context;
+    }
+
+    public void setGenre(String genre){
+        this.genre = genre;
     }
 
 }

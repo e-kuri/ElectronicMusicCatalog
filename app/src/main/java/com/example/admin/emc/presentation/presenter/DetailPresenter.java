@@ -1,8 +1,12 @@
 package com.example.admin.emc.presentation.presenter;
 
-import com.example.admin.emc.data.DAO.DjDao;
+import android.widget.Toast;
+
 import com.example.admin.emc.data.model.DJ;
-import com.example.admin.emc.domain.callback.IDJCallback;
+import com.example.admin.emc.domain.EMCApplication;
+import com.example.admin.emc.domain.callback.IDJDetailCallback;
+import com.example.admin.emc.domain.callback.IDJListCallback;
+import com.example.admin.emc.domain.service.IService.IDJService;
 import com.example.admin.emc.presentation.presenter.IPresenter.DetailContract;
 import com.google.firebase.database.DatabaseError;
 
@@ -11,28 +15,27 @@ import com.google.firebase.database.DatabaseError;
  */
 public class DetailPresenter implements DetailContract.UserActionListener{
 
-    private final DjDao djDao;
+    private IDJService djService;
     private final DetailContract.View view;
 
-    public DetailPresenter(DjDao djDao, DetailContract.View view){
-        this.djDao = djDao;
+    public DetailPresenter(DetailContract.View view){
         this.view = view;
+        this.djService = EMCApplication.getDjComponent().getService();
     }
 
     public void getDjByUsername(String key){
-        if(key != null){
-            djDao.getDJByUsername(key, new IDJCallback.DJDetailCallback() {
-                @Override
-                public void onSuccess(DJ dj) {
-                    view.setData(dj);
-                }
+        djService.getDJByUsername(key, new IDJDetailCallback.DJByUsernamePresenterCallback() {
+            @Override
+            public void onSuccess(DJ dj) {
+                view.setData(dj);
+            }
 
-                @Override
-                public void onError(DatabaseError error) {
-
-                }
-            });
-        }
+            @Override
+            public void onError(DatabaseError error) {
+                error.toException().printStackTrace();
+            }
+        });
     }
+
 
 }

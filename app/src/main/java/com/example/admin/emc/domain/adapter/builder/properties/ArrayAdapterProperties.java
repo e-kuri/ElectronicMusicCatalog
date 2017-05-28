@@ -10,6 +10,12 @@ import java.util.List;
 public class ArrayAdapterProperties extends AdapterBuilderProperties {
     private List content;
 
+    public ArrayAdapterProperties(){}
+
+    public ArrayAdapterProperties(List content){
+        this.content = content;
+    }
+
     public List getContent() {
         return content;
     }

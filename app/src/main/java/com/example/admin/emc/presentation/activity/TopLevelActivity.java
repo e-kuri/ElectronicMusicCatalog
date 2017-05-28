@@ -16,6 +16,7 @@ import android.widget.FrameLayout;
 import android.widget.ListView;
 
 import com.example.admin.emc.R;
+import com.example.admin.emc.data.Firebase.FirebaseHelper;
 import com.example.admin.emc.domain.event.ChangeFragmentEvent;
 import com.example.admin.emc.presentation.fragment.DJDetailFragment;
 import com.example.admin.emc.presentation.fragment.DJFragment;
@@ -64,6 +65,7 @@ public class TopLevelActivity extends AppCompatActivity implements DJListFragmen
         setContentView(R.layout.activity_top_level);
         drawerLayout = ((DrawerLayout) findViewById(R.id.drawer_layout));
 
+        FirebaseHelper.initializeDB();
         goToMain(true);
 
         titles = getResources().getStringArray(R.array.titles);
@@ -123,7 +125,7 @@ public class TopLevelActivity extends AppCompatActivity implements DJListFragmen
     public void  onEvent(ChangeFragmentEvent event){
         switch (event.getView()){
             case DJ_LIST:
-                showDJList();
+                showDJList(event.getGenre());
                 break;
             case DJ_INFO:
                 break;
@@ -142,9 +144,9 @@ public class TopLevelActivity extends AppCompatActivity implements DJListFragmen
         transaction.commit();
     }
 
-    public void showDJList(){
+    public void showDJList(String genre){
         fragment = new DJFragment();
-        //fragment.setFragmentPresenter(this);
+        ((DJFragment)(fragment)).setGenre(genre);
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.replace(R.id.main_frame, fragment, null);
         transaction.addToBackStack(null);

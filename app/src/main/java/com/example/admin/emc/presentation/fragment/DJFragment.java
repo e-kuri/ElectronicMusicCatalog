@@ -12,6 +12,8 @@ import com.example.admin.emc.R;
 
 public class DJFragment extends Fragment {
 
+    private String genre;
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -22,9 +24,16 @@ public class DJFragment extends Fragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        DJListFragment fragment = new DJListFragment();
+        fragment.setGenre(genre);
+
         FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
-        transaction.replace(R.id.djlist_fragment, new DJListFragment());
+        transaction.replace(R.id.djlist_fragment, fragment);
         transaction.commit();
+    }
+
+    public void setGenre(String genre){
+        this.genre = genre;
     }
 
 }

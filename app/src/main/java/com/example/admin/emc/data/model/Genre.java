@@ -1,6 +1,7 @@
 package com.example.admin.emc.data.model;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by admin on 7/24/2016.
@@ -12,7 +13,7 @@ public class Genre{
     }
 
     private String genre;
-    private List<String> djs;
+    private Map<String, Object> djs;
     private String imageUrl;
 
 
@@ -31,7 +32,7 @@ public class Genre{
         this.genre = genre;
     }
 
-    public List<String> getDjs() {
+    public Map<String, Object> getDjs() {
         return djs;
     }
 

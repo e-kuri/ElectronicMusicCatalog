@@ -18,5 +18,5 @@ import dagger.Component;
 public interface GenreComponent {
     IGenreService getService();
     GenreDao getDao();
-    GenreContract.UserActionListener getPresenter();
+ //   GenreContract.UserActionListener getPresenter();
 }

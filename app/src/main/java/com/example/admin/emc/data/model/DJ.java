@@ -2,6 +2,7 @@ package com.example.admin.emc.data.model;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by admin on 7/7/2016.
@@ -10,13 +11,13 @@ public class DJ {
 
     private String username;
     private String name;
-    private List<String> genres;
+    private Map<String, Object> genres;
     private String nationality;
     private String imageURL;
     private List<Track> tracks;
     private String description;
 
-    public DJ(String name, List<String> genres, String nationality, String imageURL){
+    public DJ(String name, Map<String, Object> genres, String nationality, String imageURL){
         this.name = name;
         this.genres = genres;
         this.nationality = nationality;
@@ -24,7 +25,7 @@ public class DJ {
         tracks = new ArrayList<>();
     }
 
-    public DJ(String username, String name, List<String> genres, String nationality, String imageURL, String description) {
+    public DJ(String username, String name, Map<String, Object> genres, String nationality, String imageURL, String description) {
         this.username = username;
         this.name = name;
         this.genres = genres;
@@ -33,7 +34,7 @@ public class DJ {
         this.description = description;
     }
 
-    public DJ(String name, List<String> genres, String nationality, String imageURL, String description) {
+    public DJ(String name, Map<String, Object> genres, String nationality, String imageURL, String description) {
         this.imageURL = imageURL;
         this.nationality = nationality;
         this.genres = genres;
@@ -47,7 +48,7 @@ public class DJ {
         return name;
     }
 
-    public List<String> getGenres() {
+    public Map<String, Object> getGenres() {
         return genres;
     }
 

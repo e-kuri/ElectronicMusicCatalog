@@ -7,15 +7,17 @@ import com.example.admin.emc.data.model.Genre;
 import com.example.admin.emc.domain.EMCApplication;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by admin on 7/25/2016.
  */
 public class FirebaseHelper {
 
-    private static DjDao djDao = DJDaoFirebaseImpl.getInstance();
-    private static GenreDao genreDao;// = EMCApplication.getGenreComponent().getDao();
+    private static DjDao djDao = EMCApplication.getDjComponent().getDao();
+    private static GenreDao genreDao = EMCApplication.getGenreComponent().getDao();
 
     public static void initializeDB(){
         Genre genre = new Genre();
@@ -39,10 +41,12 @@ public class FirebaseHelper {
         }
 
 
-        List<String> genreNames = new ArrayList<>();
-        genreNames.add(Genre.GenreName.TECHNO.toString());
+        Map<String, Object> genreNames = new HashMap<>();
+        genreNames.put(Genre.GenreName.TECHNO.toString(), true);
         djDao.insertDJ(new DJ("dubfire", "Dubfire", genreNames, "Germany", "https://i.ytimg.com/vi/gZrXGG0bINg/maxresdefault.jpg" , "God"));
+       // genreDao.insertDJ(Genre.GenreName.TECHNO.toString(), "dubfire");
         djDao.insertDJ(new DJ("maceo", "Maceo Plex", genreNames, "USA", "http://www.6am-group.com/wp-content/uploads/2015/07/maceo-plex0.jpg" , "Techno Master"));
+        //genreDao.insertDJ(Genre.GenreName.TECHNO.toString(), "maceo");
     }
 
 }
